@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+    
+    <div class="col-md-8">
+        <h1>List of Posts</h1>
+        <a href="/add/">Add new post</a>
+        
+        {% for alldta in object_list %}
+            <h2>{{alldta.title}}</h2> 
+                   <!-- This is for single image post -->
+            <!-- <p><img src="{% static alldta.thumbnail.url %}" alt="" style="width: 100%;"></p> -->
+    
+            
+                <!-- This is for gallery image post -->
+            <ul class="list-inline">
+                {% for gallery in alldta.gallery_set.all %}
+                <li>
+                
+                <img src="{% static gallery.images.url %}" alt="" width="20%">
+                
+                </li>
+                {% endfor %}
+            </ul>
+           
+    
+            <p>
+                {% autoescape off %}
+                {{alldta.content}}
+                {% endautoescape %}
+            </p> 
+    
+            <small><i style='text-transform:capitalize;color: #f00;font-weight: bold;'>Author Name - {{ alldta.user.username }}</i></small> | 
+            <small><i style='text-transform:capitalize;color: green;font-weight: bold;'>Category - {{ alldta.category.all|join:" / "}}</i></small>
+            <br><a href="/edit/{{alldta.id}}">Edit Post</a> | <a href="/delete/{{alldta.id}}">Delete Post</a>
+            <div style="height:50px;width:100%;"></div>
+           
+        {% endfor %}
+
+        
+        </div>
+
+        {% endblock %}

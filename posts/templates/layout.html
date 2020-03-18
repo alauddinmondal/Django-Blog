@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'/>
+    <script src="{% static '/tiny_mce/tiny_mce.js' %}"></script>
+    
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js'></script>
+    
+    <script>
+        tinyMCE.init({
+            'selector': 'textarea'
+        })
+    </script>
+    <style>
+    .listNone{
+    list-style:none;
+    }
+    .listNone li label, .listNone li input{
+        display: inline;
+        margin-right: 20px;
+        }
+    .listNone li label input{
+    margin:6px 6px 0;
+    }
+    .list-inline li{
+        display: inline;
+        padding-right:5px;
+    }
+    </style>
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+    {% block content %} {% endblock %}
+
+</div>
+</div>
+</body>
+</html>

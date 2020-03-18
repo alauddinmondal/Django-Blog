@@ -1,0 +1,120 @@
+{% extends '../layout.html' %}
+{% load static %}
+
+{% block content %} 
+<!-- <div class="col-md-8">
+
+    {% for alldta in datas %}
+        <h2>{{alldta.title}}</h2> 
+               <!-- This is for single image post -->
+        <!-- <p><img src="{% static alldta.thumbnail.url %}" alt="" style="width: 100%;"></p> -->
+
+        
+            <!-- This is for gallery image post -->
+        <!-- <ul class="list-inline">
+            {% for gallery in alldta.gallery_set.all %}
+            <li>
+            
+            <img src="{% static gallery.images.url %}" alt="" width="100%">
+            
+            </li>
+            {% endfor %}
+        </ul>
+       
+
+        <p>{{alldta.content}}</p> 
+
+        <small><i style='text-transform:capitalize;color: #f00;font-weight: bold;'>Author Name - {{ alldta.user.username }}</i></small> | 
+        <small><i style='text-transform:capitalize;color: green;font-weight: bold;'>Category - {{ alldta.category.all|join:" / "}}</i></small>
+        <div style="height:50px;width:100%;"></div>
+    {% endfor %}
+    </div>
+    
+    <div class="col-md-4">
+    <h2>Categories</h2>
+    
+    {% for cts in catsgry %}
+    <h4>{{cts.title}}</h4>
+        {% for cat in cts.categories.all %}
+            {{cat}}
+        {% endfor %}
+    {% endfor %} 
+    
+</div> -->
+
+
+
+
+<div class="col-md-2">   
+    
+</div>
+<div class="col-md-8">
+    <h2>Class based view | main form</h2>
+<form action="" method="POST" enctype="multipart/form-data">
+{%  csrf_token %}
+
+    <div class="form-group">
+        {% if form.errors %}
+
+            {% for errossss in form.non_field_errors %}
+                <p>{{errossss | escape}}</p>
+            {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {% if form.thumbnail.errors %}
+
+            {% for errossss_tumb in form.thumbnail.errors %}
+                <p>Thumbnail
+                    {{errossss_tumb | escape}}
+                </p>
+            {% endfor %}
+
+
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+    {% for f in form %}
+    
+        <p>{{f.label_tag}}</p>
+        <p>{{f}}</p>
+    {% endfor %}
+</div>
+<div class="form-group">
+    <button type="submit" class="btn btn-primary" >Submit post</button>
+</div>
+
+
+</form>
+</div> 
+
+<div class="col-md-2"></div>
+
+<script>
+$(function(){
+    $(form).on('submit', function(e){
+        e.preventDefault()
+        var formData = new formData(this)
+        $.ajax({
+            url:"{{ request.path }}",
+            type = 'POST',
+            data = formData,
+            contentType = false,
+            processData = false,
+            cache = false,
+            success: function(data){
+                console.log(data)
+            },
+            error: function(err){
+                console.log(err)
+            }
+        })
+    })
+})
+</script>
+
+{% endblock %}
+
